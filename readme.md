@@ -15,7 +15,7 @@ Fork of [https://github.com/onerciller/react-redux-laravel](https://github.com/o
 
 ##Installation
 
-### Laravel
+### Laravel Setup
 ```sh
 $ composer update
 ```
@@ -23,12 +23,17 @@ Create ```.env``` file for you environment variables. (Look at ```.env.example f
 
 Generate new app key: 
 ```sh 
-$php artisan key:generate
+$ php artisan key:generate
 ```
 
 Migrate database for users and posts tables
 ```sh
 $ php artisan migrate 
+```
+
+Compile SASS
+```sh
+$ gulp
 ```
 
 ### Install Front-End Requirements

@@ -12,13 +12,14 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/', function (){
-  return view('welcome');
-});
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', function (){
+  return view('react');
+});
+
+
 Route::group(['prefix' => 'api','cors'],function () {
   Route::post("login","AuthenticateController@authenticate");
   Route::post('/register','AuthenticateController@register');
@@ -30,5 +31,3 @@ Route::group(['prefix' => 'api','jwt.auth','cors'],function () {
     return JWTAuth::parseToken()->authenticate();
   });
 });
-
-

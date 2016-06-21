@@ -5,11 +5,11 @@ export default class App extends Component {
   render() {
     return (
      <div>
+      <Header />
       <div className="container">
-        <Header />
         {this.props.children}
       </div>
-     </div>
-     );
+    </div>
+    );
   }
 }
