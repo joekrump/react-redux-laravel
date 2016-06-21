@@ -1,6 +1,7 @@
 # React-Redux-Laravel#
 
 Boilerplate blog application for a Laravel JWT Backend and a React/Redux Front-End with Bootstrap 4.
+Fork of [https://github.com/onerciller/react-redux-laravel](https://github.com/onerciller/react-redux-laravel)
 
 * Laravel 5.2
 * React
@@ -17,8 +18,17 @@ Boilerplate blog application for a Laravel JWT Backend and a React/Redux Front-E
 ### Laravel
 ```sh
 $ composer update
-$ php artisan migrate 
+```
+Create ```.env``` file for you environment variables. (Look at ```.env.example for what you will need```)
 
+Generate new app key: 
+```sh 
+$php artisan key:generate
+```
+
+Migrate database for users and posts tables
+```sh
+$ php artisan migrate 
 ```
 
 ### Install Front-End Requirements
@@ -38,6 +48,10 @@ $ php artisan serve
 
 ```sh
 $ cd client-app
-$ npm start
+$ webpack -w
 ```
+
+## Note that this is still very much a 'work in progress'
+
+Basic functionality such as logging in and out has been implemented and other functionality is continuing to be developed.
  

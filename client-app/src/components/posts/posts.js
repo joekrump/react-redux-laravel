@@ -3,17 +3,18 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions/index';
 import {Link} from 'react-router';
 import spinner from 'react-loader';
+
 class Posts extends Component {
 
   componentWillMount(){
-  this.props.fetchPost();
-  this.props.userInfo();
+    this.props.fetchPost();
+    this.props.userInfo();
   }
   handleEditButton(post) {
       if(this.props.authenticated){
       return ( 
-            <Link  className="pull-xs-right btn btn-warning btn-sm" to ={"posts/"+post.id+"/edit"}>Edit</Link>
-             );
+        <Link  className="pull-xs-right btn btn-warning btn-sm" to ={"posts/"+post.id+"/edit"}>Edit</Link>
+         );
       }
   }
 
@@ -21,7 +22,7 @@ class Posts extends Component {
     return posts.map((post) => {
       return (
         <li className="list-group-item" key={post.id}>
-            <Link to={"posts/"+post.id}>
+            <Link to={"posts/"+ post.id}>
             <strong>{post.title}</strong>
             </Link>
             {this.handleEditButton(post)}

@@ -13,23 +13,22 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 |
 */
 Route::get('/', function (){
-    return view('welcome');
+  return view('welcome');
 });
 
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
-    Route::group(['prefix' => 'api','cors'],function () {
-       Route::post("login","AuthenticateController@authenticate");
-        Route::post('/register','AuthenticateController@register');
-    });
+Route::group(['prefix' => 'api','cors'],function () {
+  Route::post("login","AuthenticateController@authenticate");
+  Route::post('/register','AuthenticateController@register');
+});
 
-        Route::group(['prefix' => 'api','jwt.auth','cors'],function () {
-            Route::resource('posts','PostController');
-            Route::get('userinfo', function () {
-                return JWTAuth::parseToken()->authenticate();
-            });
-            
-        });
+Route::group(['prefix' => 'api','jwt.auth','cors'],function () {
+  Route::resource('posts','PostController');
+  Route::get('userinfo', function () {
+    return JWTAuth::parseToken()->authenticate();
+  });
+});
 
 
