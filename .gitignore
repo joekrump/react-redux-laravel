@@ -6,3 +6,6 @@ Homestead.json
 .env
 .idea
 composer.lock
+public/css/app.css
+public/css/app.css.map
+public/js/bundle.js
