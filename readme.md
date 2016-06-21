@@ -51,6 +51,8 @@ $ cd client-app
 $ webpack -w
 ```
 
+This will compile js into `bundle.js` located in the `public/js` directory
+
 ## Note that this is still very much a 'work in progress'
 
 Basic functionality such as logging in and out has been implemented and other functionality is continuing to be developed.
