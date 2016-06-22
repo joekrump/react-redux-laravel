@@ -23,4 +23,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function spotify_account()
+    {
+        return $this->hasOne('App\SpotifyAccount');
+    }
 }
