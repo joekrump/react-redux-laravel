@@ -34,39 +34,80 @@ const INITIAL_STATE = {
     }
 };
 
-
 export default function (state = INITIAL_STATE, action){
     switch (action.type) {
       case FETCH_POST:
         return { 
-          ...state, postsList: {
-            posts:[],
-            error:null,
-            loading:true
+          ...state, 
+          postsList: {
+            posts: [],
+            error: null,
+            loading: true
           }
         };     
       case FETCH_POST_SUCCESS:
         return { 
-          ...state, postsList: {posts:action.payload.data,error:null,loading:false}};
+          ...state, 
+          postsList: {
+            posts: action.payload.data,
+            error: null,
+            loading: false
+          }
+        };
       case POST_SHOW:
         return {
-          ...state,activePost: {post:null,error:null,loading:true}};  
+          ...state,
+          activePost: {
+            post: null,
+            error: null,
+            loading: true
+          }
+        };  
       case POST_SHOW_SUCCESS:
         return {
-          ...state,activePost: {post:action.payload.data,error:null,loading:false}};  
+          ...state,
+          activePost: {
+            post: action.payload.data,
+            error: null,
+            loading: false
+          }
+        };  
       case EDIT_POST:
         return { 
-          ...state, editPost: {post:null,error:null,loading:true} };     
+          ...state, 
+          editPost: {
+            post: null,
+            error: null,
+            loading: true
+          }
+        };     
       case EDIT_POST_SUCCESS:
         return {
-          ...state,editPost: {post:action.payload.data,error:null,loading:false}}  
+          ...state,
+          editPost: {
+            post: action.payload.data,
+            error: null,
+            loading: false
+          }
+        };
       case UPDATE_POST:
         return { 
-          ...state, updatePost: {post:null,error:null,loading:true} };     
+          ...state, 
+          updatePost: {
+            post: null,
+            error: null,
+            loading: true
+          }
+        };     
       case UPDATE_POST_SUCCESS:
         return { 
           ...state, 
-          updatePost: {post:true,error:null,loading:false}};     
+          updatePost: {
+            post: true,
+            error: null,
+            loading: false
+          }
+        };     
       default:
         return state;
     }

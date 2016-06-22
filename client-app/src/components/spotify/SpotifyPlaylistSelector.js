@@ -5,8 +5,9 @@ export default class SpotifyPlaylistSelector extends Component {
 
   render() {
     let playlistOptions = this.state.playlistOption.map((playlist, i) => {
+      console.log(playlist);
       return (
-        
+        <option></option>
       );
     }
 

@@ -19,6 +19,9 @@ import {
 
 const ROOT_URL = 'http://localhost:8000';
 
+
+// User and Auth actions
+// 
 export function loginUser({email,password}){
   return function(dispatch){
     axios.post(`${ROOT_URL}/api/login`,{email,password})
@@ -62,6 +65,22 @@ export function registerUser({email,password}){
   }
 }
 
+
+export function authError(error){
+    return {
+      type:AUTH_ERROR,
+      payload:error
+    }
+}
+
+export function logoutUser() {
+  localStorage.removeItem('token');
+  return { type: LOGOUT_USER };
+}
+
+
+// Post Actions
+// 
 export function addPost({title,body}){
   return function(dispatch){
     axios.post(`${ROOT_URL}/api/posts`,{title,body},
@@ -91,33 +110,6 @@ export function fetchPosts(){
         })
     }
 }
-
-// Spotify Actions
-// 
-export function spotifyPlayistInfo(){
-  return dispatch => { 
-    axios.get(`${ROOT_URL}/api/userinfo`,
-    {
-      headers:{authorization: localStorage.getItem('token')}
-    }).then(response => {
-      dispatch(updateSpotifyPlaylistSuccess(response));
-    })
-  }
-}
-
-export function updateSpotifyPlaylist(){
-
-}
-
-export function updateSpotifyPlaylistSuccess(playlist){
-  return {
-    type: UPDATE_SPOTIFY_PLAYLIST_SUCCESS,
-    payload: playlist
-  }
-}
-UPDATE_SPOTIFY_PLAYLIST
-SPOITFY_PLAYLIST_INFO
-
 
 export function fetchPostSuccess(posts){
     return {
@@ -184,9 +176,6 @@ export function updatePostSuccess(post){
     }
 }
 
-
-
-
 export function deletePost(id){
     return function(dispatch){
       axios.delete(`${ROOT_URL}/api/posts/${id}`,{
@@ -202,14 +191,29 @@ export function deletePost(id){
     }
 }
 
-export function authError(error){
-    return {
-      type:AUTH_ERROR,
-      payload:error
-    }
+
+// Spotify Actions
+// 
+export function spotifyPlayistInfo(){
+  return dispatch => { 
+    dispatch({
+      type: SPOTIFY_PLAYLIST_INFO
+    });
+  }
 }
 
-export function logoutUser() {
-  localStorage.removeItem('token');
-  return { type: LOGOUT_USER };
+export function updateSpotifyPlaylist(playlistId){
+  return dispatch => {
+    dispatch({
+      type: UPDATE_SPOTIFY_PLAYLIST,
+      payload: playlistId
+    });
+  }
+}
+
+export function updateSpotifyPlaylistSuccess(playlistId){
+  return {
+    type: UPDATE_SPOTIFY_PLAYLIST_SUCCESS,
+    payload: playlistId
+  }
 }
