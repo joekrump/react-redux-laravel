@@ -17,6 +17,7 @@ import AuthCheck from './components/auth/auth_check';
 import AddPost from './components/posts/add_post';
 import PostsShow from './components/posts/posts_show';
 import EditPost from './components/posts/edit_post';
+import SpotifyContainer from './components/spotify/SpotifyContainer';
 
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
@@ -36,6 +37,7 @@ ReactDOM.render(
         <IndexRoute  component={Welcome} />
         <Route path="login" component={Login} />
         <Route path="logout" component={Logout} />
+        <Route path="spotify" component={SpotifyContainer} />
         <Route path="register" component ={Register} />
         <Route path="posts" component ={Posts} />
         <Route path="post/add" component ={AuthCheck(AddPost)} />

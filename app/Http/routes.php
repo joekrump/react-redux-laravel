@@ -19,6 +19,9 @@ Route::get('/', function (){
   return view('react');
 });
 
+Route::get('/spotify', function (){
+  return view('react');
+});
 
 Route::group(['prefix' => 'api','cors'],function () {
   Route::post("login","AuthenticateController@authenticate");
