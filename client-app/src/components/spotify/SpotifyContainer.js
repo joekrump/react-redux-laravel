@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SpotifyPlayer from 'react-spotify-player';
 import SpotifyUserDetails from './SpotifyUserDetails';
+import SpotifyRecentTracks from './SpotifyRecentTracks';
 
 // size may also be a plain string using the presets 'large' or 'compact' 
 const size = {
@@ -20,6 +21,8 @@ export default class SpotifyContainer extends Component {
           size={size}
           view={view}
           theme={theme} />
+
+          <SpotifyRecentTracks />
       </div>
     )
   }

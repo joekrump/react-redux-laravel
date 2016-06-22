@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 // Dimension prop type
 const dimensionPropType = React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]);
@@ -58,9 +58,9 @@ const SpotifyUserDetails = React.createClass({
         width={size.width} 
         height={size.height}
         scrolling="no" 
-        frameborder="0" 
+        frameBorder="0" 
         style={{border:'none', overflow: 'hidden'}} 
-        allowtransparency="true">
+        allowTransparency="true">
       </iframe>
     );
   }
