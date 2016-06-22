@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\SpotifyAccount;
+use Auth;
 
 class SpotifyAPIController extends Controller
 {
@@ -19,16 +21,6 @@ class SpotifyAPIController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -36,7 +28,17 @@ class SpotifyAPIController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // CHECK IF THE USER IS LOGGED IN
+        echo('USER IS AUTHENTICATED?????');
+        dd(Auth::check());
+
+        dd($request->user());
+
+        echo('Saving');
+        dd($request);
+        // $post = SpotifyAccount::create([
+
+        // ]);   
     }
 
     /**
@@ -70,7 +72,18 @@ class SpotifyAPIController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // CHECK IF THE USER IS LOGGED IN
+        echo('USER IS AUTHENTICATED?????');
+        dd(Auth::check());
+
+        dd($request->user());
+
+        $post = SpotifyAccount::find($id);
+        echo('Updating');
+        // $post->update([
+
+        // ]);
+        return response()->json("UPDATED",200);
     }
 
     /**

@@ -4,9 +4,17 @@ import * as actions from '../actions/index';
 import {Link} from 'react-router';
 
 class Header extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      auth: {
+        authenticated: false
+      }
+    }
+  }
   renderNavbarRight(){
-    if(this.props.userinfo){
+    console.log(this.props);
+    if(this.props.authenticated){
       return (
         <ul className="nav navbar-nav navbar-right">
           <li className="dropdown" key={1}>
@@ -19,7 +27,8 @@ class Header extends Component {
           </li>
         </ul>
       );
-    } else {
+    } 
+    else {
       return (
         <ul className="nav navbar-nav navbar-right">
           <li>
@@ -73,9 +82,9 @@ class Header extends Component {
 }
 function mapStateToProps(state){
  return {
-   authenticated:state.auth.authenticated,
-   userinfo:state.auth.userinfo
+   authenticated: state.auth.authenticated,
+   userinfo: state.auth.userinfo
  };
 }
 
-export default connect(mapStateToProps)(Header)
+export default connect(mapStateToProps, actions)(Header);

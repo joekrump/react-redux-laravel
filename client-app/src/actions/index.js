@@ -5,8 +5,10 @@ import {
   AUTH_USER,
   AUTH_ERROR,
   LOGOUT_USER,
-  FETCH_POST,ADD_POST,
-  POST_SHOW,DELETE_POST,
+  FETCH_POSTS,
+  ADD_POST,
+  POST_SHOW,
+  DELETE_POST,
   EDIT_POST,
   UPDATE_POST,
   FETCH_POST_SUCCESS,
@@ -32,7 +34,9 @@ export function loginUser({email,password}){
       dispatch({type: AUTH_USER,
         payload:response.data.token             
       });
-      localStorage.setItem('token',response.data.token);
+      console.log('trying to save user token');
+      console.log(response);
+      localStorage.setItem('laravel_user_token',response.data.token);
       browserHistory.push("/posts");
     }).catch(()=>{
       dispatch(authError("Empty Required Field"));
@@ -44,7 +48,7 @@ export function userInfo(){
   return dispatch => { 
     axios.get(`${ROOT_URL}/api/userinfo`,
     {
-      headers:{authorization:`Bearer`+localStorage.getItem('token')}
+      headers:{authorization:`Bearer`+localStorage.getItem('laravel_user_token')}
     }).then(response => {
       dispatch({
         type: USER_INFO_SUCCESS,
@@ -59,7 +63,7 @@ export function registerUser({email,password}){
     axios.post(`${ROOT_URL}/api/register`,{email,password})
     .then(response =>{
       dispatch({type:AUTH_USER});
-      localStorage.setItem('token',response.data.token);
+      localStorage.setItem('laravel_user_token',response.data.token);
       browserHistory.push('/posts');
     })
     .catch(response => dispatch(authError(response.data.error)));
@@ -74,7 +78,7 @@ export function authError(error){
 }
 
 export function logoutUser() {
-  localStorage.removeItem('token');
+  localStorage.removeItem('laravel_user_token');
   
   return { type: LOGOUT_USER };
 }
