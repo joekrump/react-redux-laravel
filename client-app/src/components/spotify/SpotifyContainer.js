@@ -4,6 +4,8 @@ import SpotifyUserDetails from './SpotifyUserDetails';
 import SpotifyRecentTracks from './SpotifyRecentTracks';
 import SpotifyNowPlaying from './SpotifyNowPlaying';
 import scrobblerConfig from '../../../config/spotify-scrobbler';
+import {connect} from 'react-redux';
+import * as actions from '../../actions/index';
 
 // size may also be a plain string using the presets 'large' or 'compact' 
 const size = {
@@ -14,20 +16,16 @@ const view = 'list'; // or 'coverart'
 const theme = 'black'; // or 'white' 
 
 export default class SpotifyContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentPlaylist: {
-        id: '0hA7JeMWhiP6sfpzp6RtOF'
-      }
-    }
+  componentWillMount(){
+    this.props.spotifyPlayistInfo();
   }
+
   render() {
     return (
       <div>
         <SpotifyUserDetails userId={scrobblerConfig.SPOTIFY_USER_ID} size="detail" view="detail" />
         <SpotifyPlayer
-          uri={`spotify:user:${scrobblerConfig.SPOTIFY_USER_ID}:playlist:${this.state.currentPlaylist.id}`}
+          uri={`spotify:user:${scrobblerConfig.SPOTIFY_USER_ID}:playlist:${this.props.playlist.id}`}
           size={size}
           view={view}
           theme={theme} />
@@ -37,3 +35,11 @@ export default class SpotifyContainer extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    playlist: state.spotify.playlist
+  }
+}
+
+export default connect(mapStateToProps, actions)(SpotifyContainer);
