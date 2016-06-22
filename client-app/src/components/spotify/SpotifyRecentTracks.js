@@ -1,34 +1,31 @@
 import React, {Component} from 'react';
 import scrobblerConfig from '../../../config/spotify-scrobbler';
+import RecentTrack from './RecentTrack';
 
 export default class SpotifyRecentTracks extends Component {
   constructor(props){
-    super(props)
-
+    super(props);
     this.state = {
-      artistVal: null,
-      trackVal: null
+      currentTracks: []
     }
   }
   componentWillMount(){
     let uri = `http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${scrobblerConfig.SCROBBLER_API_REGISTERED_USER}&api_key=${scrobblerConfig.SCROBBLER_API_KEY}&format=json`;
-    $.getJSON(uri, function(data) {
+    let recentTrackComponents;
 
-      let artistVal = data.recenttracks.track[0].artist["#text"]
-      let trackVal = data.recenttracks.track[0].name;
-      this.setState({
-        artistVal,
-        trackVal
-      })
+    $.getJSON(uri, function(data) {
+      console.log(data.recenttracks.track);
+      this.setState({currentTracks: data.recenttracks.track});
     }.bind(this));
   }
   render() {
+    let recentTrackComponents = this.state.currentTracks.map((track, i) => {
+      return(<RecentTrack {...track} key={i} />);
+    });
+
     return (
       <div>
-        <ul>
-          <li>{this.state.artistVal}</li>
-          <li>{this.state.trackVal}</li>
-        </ul>
+        {recentTrackComponents}
       </div>
     );
   }

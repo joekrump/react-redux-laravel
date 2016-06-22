@@ -12,9 +12,7 @@ module.exports = {
     loaders: [{
       exclude: /node_modules/,
       loader: 'babel'
-    },
-    { test: /\.json$/, loader: 'json-loader' }
-    ]
+    }
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -22,11 +20,5 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     contentBase: './'
-  },
-  node: {
-    console: true,
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
   }
 };
