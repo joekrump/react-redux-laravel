@@ -23,6 +23,10 @@ Route::get('/spotify', function (){
   return view('react');
 });
 
+Route::get('/spotify/redirect-url', function(Request $request){
+  return response()->json($request, 200);
+});
+
 Route::group(['prefix' => 'api','cors'],function () {
   Route::post("login","AuthenticateController@authenticate");
   Route::post('/register','AuthenticateController@register');

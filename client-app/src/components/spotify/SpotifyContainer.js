@@ -3,6 +3,7 @@ import SpotifyPlayer from 'react-spotify-player';
 import SpotifyUserDetails from './SpotifyUserDetails';
 import SpotifyRecentTracks from './SpotifyRecentTracks';
 import SpotifyNowPlaying from './SpotifyNowPlaying';
+import SpotifyPlaylistSelector from './SpotifyPlaylistSelector';
 import scrobblerConfig from '../../../config/spotify-scrobbler';
 import {connect} from 'react-redux';
 import * as actions from '../../actions/index';
@@ -16,14 +17,18 @@ const view = 'list'; // or 'coverart'
 const theme = 'black'; // or 'white' 
 
 export default class SpotifyContainer extends Component {
-  componentWillMount(){
+  componentWillMount() {
     this.props.spotifyPlayistInfo();
   }
 
   render() {
     return (
       <div>
+        <a className="btn btn-primary" href={`https://accounts.spotify.com/authorize/?client_id=${scrobblerConfig.SPOTIFY_CLIENT_ID}&response_type=token&redirect_uri=${scrobblerConfig.SPOTIFY_AUTH_REDIRECT_URL}`}>
+          AUTHORIZE SPOTIFY
+        </a>
         <SpotifyUserDetails userId={scrobblerConfig.SPOTIFY_USER_ID} size="detail" view="detail" />
+        <SpotifyPlaylistSelector />
         <SpotifyPlayer
           uri={`spotify:user:${scrobblerConfig.SPOTIFY_USER_ID}:playlist:${this.props.playlist.id}`}
           size={size}
