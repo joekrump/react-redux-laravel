@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Auth;
 class AuthenticateController extends Controller
 {
     public function index(){
-
         return view('api.auth');
     }
 

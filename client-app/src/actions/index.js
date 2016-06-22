@@ -1,55 +1,65 @@
 import axios from 'axios';
 import jwtdecode from 'jwt-decode';
 import {browserHistory} from 'react-router';
-import {AUTH_USER,AUTH_ERROR,LOGOUT_USER,FETCH_POST,ADD_POST,POST_SHOW,DELETE_POST,EDIT_POST,
-    UPDATE_POST,FETCH_POST_SUCCESS,EDIT_POST_SUCCESS,POST_SHOW_SUCCESS,UPDATE_POST_SUCCESS,
-USER_INFO_SUCCESS,USER_INFO} from './types';
+import {
+  AUTH_USER,
+  AUTH_ERROR,
+  LOGOUT_USER,
+  FETCH_POST,ADD_POST,
+  POST_SHOW,DELETE_POST,
+  EDIT_POST,
+  UPDATE_POST,
+  FETCH_POST_SUCCESS,
+  EDIT_POST_SUCCESS,
+  POST_SHOW_SUCCESS,
+  UPDATE_POST_SUCCESS,
+  USER_INFO_SUCCESS,
+  USER_INFO
+} from './types';
+
 const ROOT_URL = 'http://localhost:8000';
+
 export function loginUser({email,password}){
   return function(dispatch){
-      axios.post(`${ROOT_URL}/api/login`,{email,password})
-        .then(response => {
-          dispatch({type: AUTH_USER,
-            payload:response.data.token             
-          });
-          localStorage.setItem('token',response.data.token);
-          browserHistory.push("/posts");
-        })
-
-        .catch(()=>{
-          dispatch(authError("Empty Required Field"));
-        });
+    axios.post(`${ROOT_URL}/api/login`,{email,password})
+    .then(response => {
+      dispatch({type: AUTH_USER,
+        payload:response.data.token             
+      });
+      localStorage.setItem('token',response.data.token);
+      browserHistory.push("/posts");
+    }).catch(()=>{
+      dispatch(authError("Empty Required Field"));
+    });
   }
-
 }
 
 
 export function userInfo(){
-    return dispatch => { 
-        axios.get(`${ROOT_URL}/api/userinfo`,{
+  return dispatch => { 
+    axios.get(`${ROOT_URL}/api/userinfo`,
+    {
       headers:{authorization:`Bearer`+localStorage.getItem('token')}
-        })
-            .then(response =>{
-                dispatch({
-                    type:USER_INFO_SUCCESS,
-                    payload:response
-                })
-            })
-    }
+    }).then(response => {
+      dispatch({
+        type: USER_INFO_SUCCESS,
+        payload: response
+      })
+    })
+  }
 }
 
 
 export function registerUser({email,password}){
-    return function(dispatch){
-        axios.post(`${ROOT_URL}/api/register`,{email,password})
-          .then(response =>{
-            dispatch({type:AUTH_USER});
-            localStorage.setItem('token',response.data.token);
-            browserHistory.push('/posts');
-          })
-          .catch(response => dispatch(authError(response.data.error)));
-
-    }
+  return function(dispatch){
+      axios.post(`${ROOT_URL}/api/register`,{email,password})
+      .then(response =>{
+        dispatch({type:AUTH_USER});
+        localStorage.setItem('token',response.data.token);
+        browserHistory.push('/posts');
+      })
+      .catch(response => dispatch(authError(response.data.error)));
+  }
 }
 
 export function addPost({title,body}){
@@ -67,17 +77,47 @@ export function addPost({title,body}){
   }
 }
 
-export function fetchPost(){
+export function fetchPosts(){
     return dispatch => {
-     dispatch({type:FETCH_POST});
+      dispatch({
+        type: FETCH_POSTS
+      });
+
       axios.get(`${ROOT_URL}/api/posts`,{
        headers: { authorization: localStorage.getItem('token') }
       })
-        .then(response =>{
+        .then(response => {
             dispatch(fetchPostSuccess(response));
         })
     }
 }
+
+// Spotify Actions
+// 
+export function spotifyPlayistInfo(){
+  return dispatch => { 
+    axios.get(`${ROOT_URL}/api/userinfo`,
+    {
+      headers:{authorization: localStorage.getItem('token')}
+    }).then(response => {
+      dispatch(updateSpotifyPlaylistSuccess(response));
+    })
+  }
+}
+
+export function updateSpotifyPlaylist(){
+
+}
+
+export function updateSpotifyPlaylistSuccess(playlist){
+  return {
+    type: UPDATE_SPOTIFY_PLAYLIST_SUCCESS,
+    payload: playlist
+  }
+}
+UPDATE_SPOTIFY_PLAYLIST
+SPOITFY_PLAYLIST_INFO
+
 
 export function fetchPostSuccess(posts){
     return {

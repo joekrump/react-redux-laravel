@@ -6,7 +6,7 @@ const defaultImageURL = 'http://dummyimage.com/100';
 export default class SpotifyRecentTracks extends Component {
 
   getTrackImage() {
-    return this.props.image[2]['#text'] ? this.props.image[2]['#text'] : defaultImageURL;
+    return this.props.image && this.props.image[2]['#text'] ? this.props.image[2]['#text'] : defaultImageURL;
   }
   render() {
     let activeStyling = this.props['@attr'] === undefined ? {} : {border:"4px solid #0E9"};
@@ -30,6 +30,6 @@ export default class SpotifyRecentTracks extends Component {
           </ul>
         </div>
       </div>
-    );
+    );    
   }
 }

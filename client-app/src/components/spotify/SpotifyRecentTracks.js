@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import scrobblerConfig from '../../../config/spotify-scrobbler';
-import RecentTrack from './RecentTrack';
+import RecentTrack from './SpotifyRecentTrack';
 
 export default class SpotifyRecentTracks extends Component {
   constructor(props){
@@ -15,12 +15,13 @@ export default class SpotifyRecentTracks extends Component {
 
     $.getJSON(uri, function(data) {
       console.log('Getting Tracks');
+      data.recenttracks.track.shift(); // remove first element
       this.setState({currentTracks: data.recenttracks.track});
     }.bind(this));
   }
   componentDidMount(){
     this.loadRecentTracks();
-    setInterval(this.loadRecentTracks.bind(this), 5000);
+    setInterval(this.loadRecentTracks.bind(this), 30000);
   }
   render() {
     let recentTrackComponents = this.state.currentTracks.map((track, i) => {
