@@ -8,9 +8,14 @@ import {
 
 import jwtDecode from 'jwt-decode';
 
-const token = localStorage.getItem('token');
+const DETAULT_STATE = {
+  authenticated: (localStorage.getItem('laravel_user_token') !== null),
+  userinfo: {
+    name: null
+  }
+};
 
-export default function(state = {}, action) {
+export default function(state = DETAULT_STATE, action) {
   switch (action.type) {
     case USER_INFO_SUCCESS: 
       return {
@@ -33,6 +38,7 @@ export default function(state = {}, action) {
         error: action.payload
       };
     default:
+      console.log(state);
       return state;
   }
 }

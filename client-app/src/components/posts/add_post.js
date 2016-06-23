@@ -34,9 +34,7 @@ this.context.router.push('/posts');
           </div>
           </div>
         );
-
     }
-
 }
 
 function validate(formProps){
@@ -57,7 +55,7 @@ function mapStateToProps(state){
 }
 
 export default reduxForm({
-form:'post',
-fields:['title','body'],
-validate:validate,
+  form:'post',
+  fields:['title','body'],
+  validate:validate,
 },mapStateToProps,{addPost})(AddPost);

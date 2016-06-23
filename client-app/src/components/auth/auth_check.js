@@ -6,9 +6,8 @@ export default function(ComposedComponent) {
     static contextTypes = {
       router: React.PropTypes.object
     }
-
     componentWillMount() {
-      if (!this.props.authenticated) {
+      if (!this.state || !this.state.authenticated) {
         this.context.router.push('/');
       }
     }
@@ -20,7 +19,7 @@ export default function(ComposedComponent) {
     }
 
     render() {
-      return <ComposedComponent {...this.props} />
+      return <ComposedComponent {...this.state} />
     }
   }
 

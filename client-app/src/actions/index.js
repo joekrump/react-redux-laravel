@@ -34,10 +34,8 @@ export function loginUser({email,password}){
       dispatch({type: AUTH_USER,
         payload:response.data.token             
       });
-      console.log('trying to save user token');
-      console.log(response);
       localStorage.setItem('laravel_user_token',response.data.token);
-      browserHistory.push("/posts");
+      browserHistory.push("/");
     }).catch(()=>{
       dispatch(authError("Empty Required Field"));
     });
@@ -90,7 +88,7 @@ export function addPost({title,body}){
   return function(dispatch){
     axios.post(`${ROOT_URL}/api/posts`,{title,body},
       {
-      headers:{authorization:localStorage.getItem('token')}
+      headers:{authorization:localStorage.getItem('laravel_user_token')}
     })
     .then(response => {
       dispatch({
@@ -108,7 +106,7 @@ export function fetchPosts(){
     });
 
     axios.get(`${ROOT_URL}/api/posts`,{
-     headers: { authorization: localStorage.getItem('token') }
+     headers: { authorization: localStorage.getItem('laravel_user_token') }
     })
     .then(response => {
           dispatch(fetchPostSuccess(response));
@@ -128,7 +126,7 @@ export function PostShow(id){
     return dispatch =>{
      dispatch({type:POST_SHOW});
       axios.get(`${ROOT_URL}/api/posts/${id}`,{
-       headers: { authorization: localStorage.getItem('token') }
+       headers: { authorization: localStorage.getItem('laravel_user_token') }
       })
         .then(response =>{
             dispatch(postShowSuccess(response));
@@ -149,7 +147,7 @@ export function EditPost(id){
     dispatch({type:EDIT_POST});  
  
     axios.get(`${ROOT_URL}/api/posts/${id}/edit`,{
-     headers: { authorization: localStorage.getItem('token') }
+     headers: { authorization: localStorage.getItem('laravel_user_token') }
     })
     .then(response =>{
         dispatch(editPostSuccess(response))
@@ -170,7 +168,7 @@ export function updatePost(id,{title,body}){
 
     axios.put(`${ROOT_URL}/api/posts/${id}`,{title,body},
     {
-      headers: { authorization: localStorage.getItem('token') }
+      headers: { authorization: localStorage.getItem('laravel_user_token') }
     })
     .then(response => {
         dispatch(updatePostSuccess(response));
@@ -187,7 +185,7 @@ export function updatePostSuccess(post){
 export function deletePost(id){
   return function(dispatch){
     axios.delete(`${ROOT_URL}/api/posts/${id}`,{
-     headers: { authorization: localStorage.getItem('token') }
+     headers: { authorization: localStorage.getItem('laravel_user_token') }
     })
     .then(response =>{
         dispatch({
