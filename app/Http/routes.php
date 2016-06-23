@@ -24,6 +24,7 @@ Route::get('/spotify', function (){
 });
 
 Route::get('/spotify/redirect-url', 'SpotifyAPIController@store');
+Route::get('/spotify/{userId}/access-token', 'SpotifyAPIController@getAcessToken');
 
 Route::group(['prefix' => 'api','cors'],function () {
   Route::post("login","AuthenticateController@authenticate");

@@ -24,7 +24,7 @@ export default class SpotifyContainer extends Component {
   render() {
     return (
       <div>
-        <a className="btn btn-primary" href={`https://accounts.spotify.com/authorize/?client_id=${scrobblerConfig.SPOTIFY_CLIENT_ID}&response_type=token&redirect_uri=${scrobblerConfig.SPOTIFY_AUTH_REDIRECT_URL}`}>
+        <a className="btn btn-primary" href={`https://accounts.spotify.com/authorize/?client_id=${scrobblerConfig.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${scrobblerConfig.SPOTIFY_AUTH_REDIRECT_URL}`}>
           AUTHORIZE SPOTIFY
         </a>
         <SpotifyUserDetails userId={scrobblerConfig.SPOTIFY_USER_ID} size="detail" view="detail" />
@@ -43,7 +43,8 @@ export default class SpotifyContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    playlist: state.spotify.playlist
+    playlist: state.spotify.playlist,
+    authorized: state.auth.authorized
   }
 }
 

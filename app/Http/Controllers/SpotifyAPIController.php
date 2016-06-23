@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\SpotifyAccount;
 use Auth;
+use App\User;
 
 class SpotifyAPIController extends Controller
 {
@@ -28,28 +29,50 @@ class SpotifyAPIController extends Controller
      */
     public function store(Request $request)
     {
-        // CHECK IF THE USER IS LOGGED IN
-        echo('USER IS AUTHENTICATED?????');
-        dd(Auth::check());
+        // Check if the user is logged in
+        // 
+        if(!Auth::check()){
+            return response()->json(['error' => 'Sorry, you must be logged in to do this'], 401);
+        } else {
+            $currentUser = $request->user();
+        }
 
-        dd($request->user());
+        $token = $request->input('code');
+        // Check if the User already has a SpotifyAccount associated with them
+        //
+        if(count($currentUser->spotify_account)){
+            // Update the related SpotifyAccount Entry
+            //
+            $currentUser->spotify_account->save(new SpotifyAccount(['access_token' => $token]));
+        } else {
+            // Create a new SpotifyAccount and associate it with the User
+            // 
+            $spotifyAccount = new SpotifyAccount(['access_token' => $token, 'user_id' => $currentUser->id]);
+            $spotifyAccount->save();
+        }
+        return response()->json(['access_token' => $token, 'message' => 'Saved token'], 200);
+    }
 
-        echo('Saving');
-        dd($request);
-        // $post = SpotifyAccount::create([
+    public function show($id)
+    {
 
-        // ]);   
     }
 
     /**
-     * Display the specified resource.
+     * Retreive the Spotify access token
      *
-     * @param  int  $id
+     * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function getAcessToken($userId)
     {
-        //
+        try {
+            $user = User::with('spotify_account')->findOrFail($userId);
+        } catch (Exception $e){
+            return response()->json(['error' => $e], 500);
+        }
+        
+        return response()->json(['access_token' => $user->spotify_account->access_token], 200);
     }
 
     /**

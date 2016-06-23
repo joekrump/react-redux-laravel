@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SpotifyAccount extends Model
 {
-    protected $table = "spotify_account";
+    protected $table = "spotify_accounts";
 
     protected  $fillable = [
       'id',
