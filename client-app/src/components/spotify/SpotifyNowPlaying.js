@@ -31,7 +31,7 @@ export default class SpotifyNowPlaying extends Component {
   }
   componentDidMount(){
     this.loadRecentTracks();
-    setInterval(this.loadRecentTracks.bind(this), 2000);
+    // setInterval(this.loadRecentTracks.bind(this), 2000);
   }
   render() {
     return (

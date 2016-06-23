@@ -17,7 +17,6 @@ class AuthenticateController extends Controller
     return view('api.auth');
   }
 
-
   public function register(Request $request){
 
    $credentials = $request->only('email', 'password');

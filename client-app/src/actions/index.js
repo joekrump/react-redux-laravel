@@ -19,7 +19,9 @@ import {
   USER_INFO,
   UPDATE_SPOTIFY_PLAYLIST,
   UPDATE_SPOTIFY_PLAYLIST_SUCCESS,
-  SPOTIFY_PLAYLIST_INFO
+  SPOTIFY_PLAYLIST_INFO,
+  SPOTIFY_ACCESS_TOKEN,
+  SPOTIFY_ACCESS_TOKEN_SUCCESS
 } from './types';
 
 const ROOT_URL = 'http://localhost:8000';
@@ -93,7 +95,7 @@ export function addPost({title,body}){
     .then(response => {
       dispatch({
         type:ADD_POST,
-        payload:response
+        payload: response
       })
     })
   }
@@ -221,4 +223,25 @@ export function updateSpotifyPlaylistSuccess(playlistId){
     type: UPDATE_SPOTIFY_PLAYLIST_SUCCESS,
     payload: playlistId
   }
+}
+
+export function getSpotifyToken(){
+  return dispatch => {
+
+    dispatch({type: SPOTIFY_ACCESS_TOKEN});
+
+    axios.get(`${ROOT_URL}/spotify/access-token`,
+    {
+      headers:{authorization:`Bearer`+ localStorage.getItem('laravel_user_token')}
+    }).then(response => {
+      dispatch(getSpotifyTokenSuccess(response))
+    })
+  }
+}
+
+export function getSpotifyTokenSuccess(response){
+  return {
+    type: SPOTIFY_ACCESS_TOKEN_SUCCESS,
+    payload: response
+  };
 }

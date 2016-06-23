@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\SpotifyAccount;
 use Auth;
 use App\User;
+use GuzzleHttp\Client;
 
 class SpotifyAPIController extends Controller
 {
@@ -37,7 +38,28 @@ class SpotifyAPIController extends Controller
             $currentUser = $request->user();
         }
 
-        $token = $request->input('code');
+        $code = $request->input('code');
+        
+        // Make Request for tokens
+        // 
+        $guzzleClient = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => 'https://accounts.spotify.com',
+            // You can set any number of default request options.
+            'timeout'  => 2.0,
+        ]);
+
+        $body = [
+            "grant_type" => 'authorization_code',
+            "redirect_uri" => env('SPOTIFY_AUTH_REDIRECT_URL'),
+            "client_id" => env('SPOTIFY_CLIENT_ID'),
+            "client_secret" => env('SPOTIFY_CLIENT_SECRET'),
+            "code" => $code
+        ];
+
+        $guzzleResponse = $guzzleClient->request('POST', '/api/token', ['form_params' => $body]);
+
+        dd($guzzleResponse);
         // Check if the User already has a SpotifyAccount associated with them
         //
         if(count($currentUser->spotify_account)){
@@ -50,7 +72,9 @@ class SpotifyAPIController extends Controller
             $spotifyAccount = new SpotifyAccount(['access_token' => $token, 'user_id' => $currentUser->id]);
             $spotifyAccount->save();
         }
-        return response()->json(['access_token' => $token, 'message' => 'Saved token'], 200);
+
+        return redirect('/spotify');
+        // return response()->json(['access_token' => $token, 'message' => 'Saved token'], 200);
     }
 
     public function show($id)
@@ -64,13 +88,14 @@ class SpotifyAPIController extends Controller
      * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function getAcessToken(Request $request, $userId)
+    public function getAcessToken(Request $request)
     {
+        if(!Auth::check()){
+            return response()->json(['error' => 'Sorry, you are not permitted to do this'], 403);
+        }
+
         try {
-            $user = User::with('spotify_account')->findOrFail($userId);
-            if($user->id != $request->user()->id){
-                return response()->json(['error' => 'Sorry, you are not permitted to do this'], 403);
-            }
+            $user = $request->user();
         } catch (Exception $e){
             return response()->json(['error' => $e], 500);
         }

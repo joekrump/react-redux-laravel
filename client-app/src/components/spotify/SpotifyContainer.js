@@ -19,6 +19,7 @@ const theme = 'black'; // or 'white'
 export default class SpotifyContainer extends Component {
   componentWillMount() {
     this.props.spotifyPlayistInfo();
+    this.props.getSpotifyToken();
   }
 
   render() {
@@ -28,7 +29,7 @@ export default class SpotifyContainer extends Component {
           AUTHORIZE SPOTIFY
         </a>
         <SpotifyUserDetails userId={scrobblerConfig.SPOTIFY_USER_ID} size="detail" view="detail" />
-        <SpotifyPlaylistSelector />
+        <SpotifyPlaylistSelector accessToken={this.props.accessToken} />
         <SpotifyPlayer
           uri={`spotify:user:${scrobblerConfig.SPOTIFY_USER_ID}:playlist:${this.props.playlist.id}`}
           size={size}
@@ -44,7 +45,9 @@ export default class SpotifyContainer extends Component {
 function mapStateToProps(state) {
   return {
     playlist: state.spotify.playlist,
-    authorized: state.auth.authorized
+    authorized: state.auth.authorized,
+    userinfo: state.auth.userinfo,
+    accessToken: state.spotify.accessToken,
   }
 }
 

@@ -13,7 +13,6 @@ class Header extends Component {
     }
   }
   renderNavbarRight(){
-    console.log(this.props);
     if(this.props.authenticated){
       return (
         <ul className="nav navbar-nav navbar-right">

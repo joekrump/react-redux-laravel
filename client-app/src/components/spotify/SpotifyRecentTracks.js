@@ -21,7 +21,7 @@ export default class SpotifyRecentTracks extends Component {
   }
   componentDidMount(){
     this.loadRecentTracks();
-    setInterval(this.loadRecentTracks.bind(this), 30000);
+    // setInterval(this.loadRecentTracks.bind(this), 30000);
   }
   render() {
     let recentTrackComponents = this.state.currentTracks.map((track, i) => {

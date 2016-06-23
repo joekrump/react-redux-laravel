@@ -38,7 +38,7 @@ export default function(state = DETAULT_STATE, action) {
         error: action.payload
       };
     default:
-      console.log(state);
+      // console.log(state);
       return state;
   }
 }
