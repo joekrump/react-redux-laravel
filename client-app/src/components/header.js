@@ -44,9 +44,14 @@ class Header extends Component {
   renderLinks(){
     if(this.props.authenticated){
       return (
-        <li className="nav-item pull-xs-left" key={2}>
-          <Link className="nav-item nav-link" to="/post/add">New Post</Link>
-        </li>
+        <ul className="nav navbar-nav">
+          <li className="nav-item pull-xs-left" key={2}>
+            <Link className="nav-item nav-link" to="/post/add">New Post</Link>
+          </li>
+          <li>
+            <Link className="nav-item nav-link" to="/spotify">Spotify Dash</Link>
+          </li>
+        </ul>
       );
     }
   }
@@ -65,10 +70,7 @@ class Header extends Component {
               <Link to="/" className="navbar-brand">My Blog</Link>
           </div>
           <div className="collapse navbar-collapse" id="app-navbar-collapse">
-            <ul className="nav navbar-nav">
-              {this.renderLinks()}
-            </ul>
-            
+            {this.renderLinks()}
             {this.renderNavbarRight()}
           </div>
         </div>

@@ -14,7 +14,7 @@ class Posts extends Component {
   handleEditButton(post) {
     if(this.props.authenticated){
       return ( 
-        <Link className="pull-xs-right btn btn-warning btn-sm" to={ `posts/${post.id}/edit` }>Edit</Link>
+        <Link className="pull-right btn btn-primary btn-xs" to={ `posts/${post.id}/edit` }>Edit</Link>
       );
     }
   }
