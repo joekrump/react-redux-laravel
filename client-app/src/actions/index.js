@@ -209,19 +209,12 @@ export function spotifyPlayistInfo(){
   }
 }
 
-export function updateSpotifyPlaylist(playlistId){
+export function updateSpotifyPlaylist(playlistURI){
   return dispatch => {
     dispatch({
       type: UPDATE_SPOTIFY_PLAYLIST,
-      payload: playlistId
+      payload: playlistURI
     });
-  }
-}
-
-export function updateSpotifyPlaylistSuccess(playlistId){
-  return {
-    type: UPDATE_SPOTIFY_PLAYLIST_SUCCESS,
-    payload: playlistId
   }
 }
 

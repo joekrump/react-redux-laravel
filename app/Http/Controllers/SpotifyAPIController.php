@@ -152,7 +152,8 @@ class SpotifyAPIController extends Controller
 
             foreach($playlists['items'] as $item) {
                 $playlistOptions[] = [
-                    $item['name'] => $item['uri']
+                    'name' => $item['name'],
+                    'uri' => $item['uri']
                 ];
             }
             return response()->json(['playlist_options' => $playlistOptions]);
@@ -256,7 +257,7 @@ class SpotifyAPIController extends Controller
         try {
             $guzzleResponse = $guzzleClient->request($method, $path, $full_params);
         } catch (RequestException $e){
-            dd($e);
+            error_log($e);
         }
 
         $responseBody = $guzzleResponse->getBody();

@@ -25,13 +25,12 @@ export default class SpotifyNowPlaying extends Component {
     let recentTrackComponents;
 
     $.getJSON(uri, function(data) {
-      console.log(data);
       this.setState({trackNowPlaying: data.recenttracks.track[0]});
     }.bind(this));
   }
   componentDidMount(){
     this.loadRecentTracks();
-    // setInterval(this.loadRecentTracks.bind(this), 2000);
+    setInterval(this.loadRecentTracks.bind(this), 2000);
   }
   render() {
     return (

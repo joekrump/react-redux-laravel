@@ -28,10 +28,10 @@ export default class SpotifyContainer extends Component {
         <a className="btn btn-primary" href={`https://accounts.spotify.com/authorize/?client_id=${scrobblerConfig.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${scrobblerConfig.SPOTIFY_AUTH_REDIRECT_URL}`}>
           AUTHORIZE SPOTIFY
         </a>
-        <SpotifyUserDetails userId={scrobblerConfig.SPOTIFY_USER_ID} size="detail" view="detail" />
+        <SpotifyUserDetails size="detail" view="detail" />
         <SpotifyPlaylistSelector accessToken={this.props.accessToken} />
         <SpotifyPlayer
-          uri={`spotify:user:${scrobblerConfig.SPOTIFY_USER_ID}:playlist:${this.props.playlist.id}`}
+          uri={this.props.playlist.uri}
           size={size}
           view={view}
           theme={theme} />

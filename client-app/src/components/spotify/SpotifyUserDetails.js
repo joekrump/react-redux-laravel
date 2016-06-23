@@ -1,4 +1,5 @@
 import React from 'react';
+import scrobblerConfig from '../../../config/spotify-scrobbler';
 
 // Dimension prop type
 const dimensionPropType = React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]);
@@ -54,7 +55,7 @@ const SpotifyUserDetails = React.createClass({
     }
 
     return (
-      <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:user:${userId}&size=${view}&theme=${theme}&show-count=${showCount}`} 
+      <iframe src={`https://embed.spotify.com/follow/1/?uri=spotify:user:${scrobblerConfig.SPOTIFY_USER_ID}&size=${view}&theme=${theme}&show-count=${showCount}`} 
         width={size.width} 
         height={size.height}
         scrolling="no" 

@@ -14,14 +14,13 @@ export default class SpotifyRecentTracks extends Component {
     let recentTrackComponents;
 
     $.getJSON(uri, function(data) {
-      console.log('Getting Tracks');
       data.recenttracks.track.shift(); // remove first element
       this.setState({currentTracks: data.recenttracks.track});
     }.bind(this));
   }
   componentDidMount(){
     this.loadRecentTracks();
-    // setInterval(this.loadRecentTracks.bind(this), 30000);
+    setInterval(this.loadRecentTracks.bind(this), 30000);
   }
   render() {
     let recentTrackComponents = this.state.currentTracks.map((track, i) => {
