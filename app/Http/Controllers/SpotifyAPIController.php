@@ -43,7 +43,7 @@ class SpotifyAPIController extends Controller
         if(count($currentUser->spotify_account)){
             // Update the related SpotifyAccount Entry
             //
-            $currentUser->spotify_account->save(new SpotifyAccount(['access_token' => $token]));
+            $currentUser->spotify_account->update(['access_token' => $token]);
         } else {
             // Create a new SpotifyAccount and associate it with the User
             // 
@@ -64,10 +64,13 @@ class SpotifyAPIController extends Controller
      * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function getAcessToken($userId)
+    public function getAcessToken(Request $request, $userId)
     {
         try {
             $user = User::with('spotify_account')->findOrFail($userId);
+            if($user->id != $request->user()->id){
+                return response()->json(['error' => 'Sorry, you are not permitted to do this'], 403);
+            }
         } catch (Exception $e){
             return response()->json(['error' => $e], 500);
         }
