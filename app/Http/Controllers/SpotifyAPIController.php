@@ -58,8 +58,8 @@ class SpotifyAPIController extends Controller
         ];
 
         $guzzleResponse = $guzzleClient->request('POST', '/api/token', ['form_params' => $body]);
-
-        dd($guzzleResponse);
+        $responseBody = $guzzleResponse->getBody();
+        dd(json_decode($responseBody->getContents()));
         // Check if the User already has a SpotifyAccount associated with them
         //
         if(count($currentUser->spotify_account)){
