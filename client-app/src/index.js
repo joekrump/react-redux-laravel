@@ -18,6 +18,7 @@ import AddPost from './components/posts/add_post';
 import PostsShow from './components/posts/posts_show';
 import EditPost from './components/posts/edit_post';
 import SpotifyContainer from './components/spotify/SpotifyContainer';
+import TestComponent from './components/sortable/TestComponent';
 
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
@@ -43,6 +44,7 @@ ReactDOM.render(
         <Route path="post/add" component ={AuthCheck(AddPost)} />
         <Route path="posts/:id" component = {PostsShow} />
         <Route path="posts/:id/edit" component = {EditPost} />
+        <Route path="sortable-colors" component = {TestComponent} />
       </Route>
     </Router>
   </Provider>

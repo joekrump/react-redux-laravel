@@ -45,11 +45,22 @@ class Header extends Component {
     if(this.props.authenticated){
       return (
         <ul className="nav navbar-nav">
-          <li className="nav-item pull-xs-left" key={2}>
+          <li className="nav-item pull-xs-left">
             <Link className="nav-item nav-link" to="/post/add">New Post</Link>
           </li>
           <li>
             <Link className="nav-item nav-link" to="/spotify">Spotify Dash</Link>
+          </li>
+          <li className="nav-item pull-xs-left">
+            <Link className="nav-item nav-link" to="sortable-colors">Sortable Colors</Link>
+          </li>
+        </ul>
+      );
+    } else {
+      return (
+        <ul className="nav navbar">
+          <li className="nav-item pull-xs-left">
+            <Link className="nav-item nav-link" to="sortable-colors">Sortable Colors</Link>
           </li>
         </ul>
       );
