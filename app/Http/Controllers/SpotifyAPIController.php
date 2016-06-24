@@ -40,7 +40,7 @@ class SpotifyAPIController extends Controller
 
         // Get an associative array containing the token data
         // 
-        $auth_tokens = getNewSpotifyTokens([
+        $auth_tokens = SpotifyAPIController::getNewSpotifyTokens([
             'code' => ($request->input('code')),
             'redirect_uri' => env('SPOTIFY_AUTH_REDIRECT_URL'),
             'grant_type'=> 'authorization_code'
