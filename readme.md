@@ -1,4 +1,4 @@
-# React-Redux-Laravel#
+# React-Redux-Laravel
 
 Boilerplate blog application for a Laravel JWT Backend and a React/Redux Front-End with Bootstrap 4.
 Fork of [https://github.com/onerciller/react-redux-laravel](https://github.com/onerciller/react-redux-laravel)
